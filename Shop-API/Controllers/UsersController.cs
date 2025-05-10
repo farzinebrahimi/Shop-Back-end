@@ -13,7 +13,7 @@ namespace Shop_API.Controllers;
 public class UsersController(DataContext context) : BaseApiController
 {
     
-    [HttpPost("register")] // /api/account/register
+    [HttpPost("register")] // /api/users/register
     public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto )
     {
         if(await UserExists(registerDto.PhoneNumber)) return BadRequest("User already exists");
@@ -31,10 +31,24 @@ public class UsersController(DataContext context) : BaseApiController
         return user;
     }
 
-    private async Task<bool> UserExists(string phoneNumber)
+    [HttpPost("login")] // /api/users/login
+    public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
     {
-        return await context.Users.AnyAsync(x => x.PhoneNumber.ToLower() == phoneNumber.ToLower());
+        var user = await context.Users.FirstOrDefaultAsync(x =>
+            x.PhoneNumber.ToLower() == loginDto.PhoneNumber.ToLower());
+
+        if (user == null) return Unauthorized("Invalid username!");
+        
+        using var hmac = new HMACSHA512(user.PasswordSalt);
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+        for (int i = 0; i < computedHash.Length; i++)
+        {
+            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password!");
+        }
+        return user;
     }
+
+   
     
     [HttpGet] // /api/users
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
@@ -55,5 +69,9 @@ public class UsersController(DataContext context) : BaseApiController
 
     }
     
+    private async Task<bool> UserExists(string phoneNumber)
+    {
+        return await context.Users.AnyAsync(x => x.PhoneNumber.ToLower() == phoneNumber.ToLower());
+    }
     
 }
