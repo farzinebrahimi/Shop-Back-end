@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -25,8 +26,10 @@ public class TokenService(IConfiguration config) : ITokenService
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddDays(7),
+            
             SigningCredentials = creds
         };
+        Debug.WriteLine(DateTime.UtcNow.ToString());
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
