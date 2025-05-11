@@ -10,8 +10,8 @@ using Shop_API.Interfaces;
 
 namespace Shop_API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
+
+
 public class UsersController(DataContext context) : BaseApiController
 {
     [AllowAnonymous]
