@@ -1,4 +1,4 @@
-namespace Shop_API.DTO;
+namespace Shop_API.DTOs;
 
 public class UserDto
 {

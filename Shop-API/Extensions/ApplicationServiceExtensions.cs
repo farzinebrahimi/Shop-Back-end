@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shop_API.Data;
 using Shop_API.Interfaces;
+using Shop_API.Interfaces.Repositories;
 using Shop_API.Services;
 
 namespace Shop_API.Extensions;
@@ -16,6 +17,7 @@ public static class ApplicationServiceExtensions
         });
         services.AddCors();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserRepository, UserRepository>();
         
         return services;
     }

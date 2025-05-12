@@ -1,33 +1,26 @@
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Shop_API.Data;
-using Shop_API.DTO;
 using Shop_API.Entities.Users;
-using Shop_API.Interfaces;
+using Shop_API.Interfaces.Repositories;
 
 namespace Shop_API.Controllers;
 
 
-
-public class UsersController(DataContext context) : BaseApiController
+[Authorize]
+public class UsersController(IUserRepository userRepository) : BaseApiController
 {
-    [AllowAnonymous]
     [HttpGet] // /api/users
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
-        var users = await context.Users.ToListAsync();
+        var users = await userRepository.GetUsersAsync();
 
-        return users;
+        return Ok(users);
     }
 
-    [Authorize]
-    [HttpGet("{id:int}")] // api/users/{id}
-    public async Task<ActionResult<AppUser>> GetUsers(int id)
+    [HttpGet("{username}")] // api/users/{id}
+    public async Task<ActionResult<AppUser>> GetUsers(string username)
     {
-        var user = await context.Users.FindAsync(id);
+        var user = await userRepository.GetByUserNameAsync(username);
 
         if (user == null) return NotFound();
 

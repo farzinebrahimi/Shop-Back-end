@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop_API.Data;
-using Shop_API.DTO;
+using Shop_API.DTOs;
 using Shop_API.Entities.Users;
 using Shop_API.Interfaces;
 
