@@ -16,28 +16,29 @@ public class AccountController(DataContext context, ITokenService tokenService) 
     {
         if (await UserExists(registerDto.PhoneNumber)) return BadRequest("User already exists");
 
-        using var hmac = new HMACSHA512();
-
-        var user = new AppUser
-        {
-            PhoneNumber = registerDto.PhoneNumber.ToLower(),
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-            PasswordSalt = hmac.Key
-        };
-        context.Users.Add(user);
-        await context.SaveChangesAsync();
-        return new UserDto
-        {
-            PhoneNumber = user.PhoneNumber,
-            Token = tokenService.GenerateToken(user)
-        };
+        return Ok();
+        // using var hmac = new HMACSHA512();
+        //
+        // var user = new AppUser
+        // {
+        //     PhoneNumber = registerDto.PhoneNumber.ToLower(),
+        //     PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+        //     PasswordSalt = hmac.Key
+        // };
+        // context.Users.Add(user);
+        // await context.SaveChangesAsync();
+        // return new UserDto
+        // {
+        //     PhoneNumber = user.PhoneNumber,
+        //     Token = tokenService.GenerateToken(user)
+        // };
     }
 
     [HttpPost("login")] // /api/users/login
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         var user = await context.Users.FirstOrDefaultAsync(x =>
-            x.PhoneNumber.ToLower() == loginDto.PhoneNumber.ToLower());
+            x.UserName.ToLower() == loginDto.PhoneNumber.ToLower());
 
         if (user == null) return Unauthorized("Invalid username!");
 
@@ -50,13 +51,13 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
         return new UserDto
         {
-            PhoneNumber = user.PhoneNumber,
+            PhoneNumber = user.UserName,
             Token = tokenService.GenerateToken(user)
         };
     }
 
     private async Task<bool> UserExists(string phoneNumber)
     {
-        return await context.Users.AnyAsync(x => x.PhoneNumber.ToLower() == phoneNumber.ToLower());
+        return await context.Users.AnyAsync(x => x.UserName.ToLower() == phoneNumber.ToLower());
     }
 }

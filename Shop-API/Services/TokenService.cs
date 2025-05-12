@@ -18,7 +18,7 @@ public class TokenService(IConfiguration config) : ITokenService
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.NameIdentifier, user.PhoneNumber),
+            new(ClaimTypes.NameIdentifier, user.UserName),
         };
         
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
