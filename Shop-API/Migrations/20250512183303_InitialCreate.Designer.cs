@@ -9,11 +9,11 @@ using Shop_API.Data;
 
 #nullable disable
 
-namespace Shop_API.Data.Migrations
+namespace Shop_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250512121823_UpdateUserEntity")]
-    partial class UpdateUserEntity
+    [Migration("20250512183303_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,10 +75,6 @@ namespace Shop_API.Data.Migrations
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("text");
@@ -86,7 +82,7 @@ namespace Shop_API.Data.Migrations
                     b.Property<string>("Interduction")
                         .HasColumnType("text");
 
-                    b.Property<string>("Intrests")
+                    b.Property<string>("Interests")
                         .HasColumnType("text");
 
                     b.Property<string>("KnownAs")
@@ -106,10 +102,6 @@ namespace Shop_API.Data.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("bytea");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("UserName")
                         .IsRequired()

@@ -26,6 +26,9 @@ public class Seed
             user.UserName = user.UserName.ToLower();
             user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
             user.PasswordSalt = hmac.Key;
+            
+            user.Created = DateTime.SpecifyKind(user.Created, DateTimeKind.Utc);
+            user.LastActive = DateTime.SpecifyKind(user.LastActive, DateTimeKind.Utc);
 
             context.Users.Add(user);
         }

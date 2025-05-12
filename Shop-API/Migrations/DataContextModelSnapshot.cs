@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Shop_API.Data;
 
 #nullable disable
 
-namespace Shop_API.Data.Migrations
+namespace Shop_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250512130251_UpdateDatabse")]
-    partial class UpdateDatabse
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,10 +72,6 @@ namespace Shop_API.Data.Migrations
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("text");
@@ -86,7 +79,7 @@ namespace Shop_API.Data.Migrations
                     b.Property<string>("Interduction")
                         .HasColumnType("text");
 
-                    b.Property<string>("Intrests")
+                    b.Property<string>("Interests")
                         .HasColumnType("text");
 
                     b.Property<string>("KnownAs")
