@@ -21,7 +21,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
         //
         // var user = new AppUser
         // {
-        //     PhoneNumber = registerDto.PhoneNumber.ToLower(),
+        //     UserName = registerDto.UserName.ToLower(),
         //     PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
         //     PasswordSalt = hmac.Key
         // };
@@ -29,7 +29,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
         // await context.SaveChangesAsync();
         // return new UserDto
         // {
-        //     PhoneNumber = user.PhoneNumber,
+        //     UserName = user.UserName,
         //     Token = tokenService.GenerateToken(user)
         // };
     }

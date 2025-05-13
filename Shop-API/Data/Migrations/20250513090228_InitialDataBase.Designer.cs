@@ -2,18 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Shop_API.Data;
 
 #nullable disable
 
-namespace Shop_API.Migrations
+namespace Shop_API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250513090228_InitialDataBase")]
+    partial class InitialDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,10 +79,10 @@ namespace Shop_API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Interduction")
+                    b.Property<string>("Interests")
                         .HasColumnType("text");
 
-                    b.Property<string>("Interests")
+                    b.Property<string>("Introduction")
                         .HasColumnType("text");
 
                     b.Property<string>("KnownAs")
