@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Shop_API.Migrations
+namespace Shop_API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +26,7 @@ namespace Shop_API.Migrations
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastActive = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: false),
-                    Interduction = table.Column<string>(type: "text", nullable: true),
+                    Introduction = table.Column<string>(type: "text", nullable: true),
                     Interests = table.Column<string>(type: "text", nullable: true),
                     LookingFor = table.Column<string>(type: "text", nullable: true),
                     City = table.Column<string>(type: "text", nullable: false),
